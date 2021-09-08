@@ -33,15 +33,15 @@ object DeltaProcessing /*extends Serializable*/  {
   
   
    //Adding column to table
-
   val newDF = df.withColumn("University",lit("MIT"))
 
+       //Storing in format delta
   newDF.write.format("delta").mode("overwrite").option("mergeSchema", "true").save("file:/home/houssem/delta-table/grades")
    val df2 = spark.read.format("delta").load("file:/home/houssem/delta-table/grades")
   df2.show(5,false)
   
   
-  
+     //review several previous version of my dataframe
     val timeTravelDF_1 = spark.read.format("delta").option("versionAsOf", 0).load("file:/home/houssem/delta-table/grades")
   timeTravelDF_1.show(5,false)
 //  
